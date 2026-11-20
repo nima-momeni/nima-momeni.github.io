@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import { projects, profile } from '../../data/site';
+import GantryCaseStudy from '../../components/GantryCaseStudy.astro';
+import DecoderFixtureCaseStudy from '../../components/DecoderFixtureCaseStudy.astro';
+export function getStaticPaths() { return projects.map((project) => ({params: {slug: project.slug}, props: {project}})); }
+const {project} = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title={`${project.title} — ${profile.name}`} description={project.description}>
+{project.slug === 'led-test-gantry' ? <GantryCaseStudy project={project} base={base} /> : <DecoderFixtureCaseStudy project={project} base={base} />}
+</Base>

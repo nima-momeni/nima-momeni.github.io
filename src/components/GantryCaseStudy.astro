@@ -1,0 +1,81 @@
+---
+const {project,base} = Astro.props;
+const asset=(name)=>`${base}/images/gantry/${name}.webp`;
+---
+<article class="case-study">
+ <a class="back" href={`${base}/#projects`}>← All projects</a>
+ <header class="case-intro">
+  <div class="eyebrow">SELECTED WORK / TEST AUTOMATION</div>
+  <h1>Automated LED Tape<br/><em>Test Gantry</em></h1>
+  <p class="lead">Developing a mechanically validated, dual-carriage photometric test system for in-house QA of externally manufactured LED tape.</p>
+  <div class="tags case-tags">{project.tags.map(tag=><span>{tag}</span>)}</div>
+ </header>
+ <figure class="case-hero"><img src={asset('overview-detail')} alt="Actual dual-carriage LED tape test gantry with spool carrier, aluminum track, measurement enclosure and Sekonic instrument" fetchpriority="high"/><figcaption>Prototype assembly: independently driven tape-dispensing and measurement carriages.</figcaption></figure>
+ <div class="case-facts" aria-label="Project facts">
+  <div><small>ORGANIZATION</small><strong>Better Way Lighting</strong></div>
+  <div><small>ROLE</small><strong>LED Technician · Mechanical design & hardware development</strong></div>
+  <div><small>TOOLS</small><strong>Fusion 360 · 3-axis CNC milling · Sheet-metal fabrication · ESP32 · MKS SERVO 42C</strong></div>
+  <div><small>STATUS</small><strong>QA test hardware prototype validated</strong></div>
+ </div>
+ <section class="case-split" id="challenge">
+  <div class="case-label"><span class="case-number">01</span><span>The challenge</span></div>
+  <div class="case-prose"><h2>Making in-house LED tape QA more repeatable.</h2>
+   <p>For in-house QA of externally manufactured LED tape, technicians darkened the machine room, connected each of the LED tape’s 2–6 channels to a decoder using screw terminals, unrolled the tape, and adjusted channels manually. A handheld Sekonic instrument was repositioned in a portable dark box to capture readings at several points.</p>
+   <p>Earlier automation attempts included an overheating cassette-style feeding mechanism and an unsuccessful wooden gantry. An aluminum gantry kit had been purchased, but the project was shelved before it could be used.</p>
+   <p>My task was to develop a workable mechanical system around the available gantry components, then establish that its motion and optical measurement approach were viable.</p>
+  </div>
+ </section>
+ <section class="case-split" id="architecture">
+  <div class="case-label"><span class="case-number">02</span><span>Mechanical architecture</span></div>
+  <div class="case-prose"><h2>Two independent carriages, two distinct jobs.</h2>
+   <p><strong>Dispensing carriage:</strong> a vertically oriented spool holder feeds LED tape to a defined length. I designed the reel assembly, brackets, and associated sheet-metal hardware to work with the kit’s original aluminum platforms and roller assemblies. I also used 3-axis CNC milling and sheet-metal fabrication skills to turn custom part designs into physical components.</p>
+   <p><strong>Measurement carriage:</strong> a custom enclosed dark box positions a Sekonic C-800 instrument over the tape. The carriage travels along the strip to allow measurements at four equally spaced locations, checking consistency of colour and light output.</p>
+  </div>
+ </section>
+ <div class="case-gallery two-up architecture-photos">
+  <figure><img src={asset('reel-cart-front-photo')} alt="Actual tape-dispensing carriage showing the reel cart, spool mount, fabricated plate, and drive hardware on the aluminum gantry" loading="lazy"/><figcaption>Tape-dispensing carriage · reel cart with spool and drive hardware</figcaption></figure>
+  <figure><img src={asset('darkbox-cart-crop')} alt="Actual measurement carriage on the gantry, showing the dark-box enclosure and Sekonic meter mounted above the tape path" loading="lazy"/><figcaption>Measurement carriage · dark-box enclosure with Sekonic C-800</figcaption></figure>
+ </div>
+ <section class="case-split" id="drive">
+  <div class="case-label"><span class="case-number">03</span><span>Motion system</span></div>
+  <div class="case-prose"><h2>A fixed belt used as a linear rack.</h2>
+   <p>I implemented a rack-and-pinion-inspired drive in which a toothed pulley, mounted to each carriage’s stepper motor, engaged a timing belt fixed along the gantry extrusion. Rotating the pulley translated the carriage along the stationary belt.</p>
+   <p>Adjustable-height motor mounts made it possible to tune pulley engagement. For homing, adjustable mechanical tabs on the carriages actuated limit switches mounted beneath the platforms.</p>
+   <p>I initially used an <strong>ESP32</strong> to validate the drive hardware. The final prototype used <strong>MKS SERVO 42C</strong> closed-loop stepper drivers with a PC-based serial interface. I developed and validated the physical system; final PC control software was implemented separately.</p>
+  </div>
+ </section>
+ <div class="case-gallery two-up drive-photos">
+  <figure><img src={asset('thumbscrew-stepper-mount')} alt="Stepper motor attached to bent sheet-metal adjustable mount and linkage with black thumbscrew for tuning pulley engagement on the stationary belt" loading="lazy"/><figcaption>Thumbscrew-adjustable stepper motor mount · drive engagement</figcaption></figure>
+  <figure><img src={asset('adjustable-homing-switch')} alt="Side view of the cart showing an underside-mounted limit switch positioned above an adjustable stop tab seated in the gantry extrusion" loading="lazy"/><figcaption>Adjustable homing stop and underside-mounted limit switch</figcaption></figure>
+ </div>
+ <section class="case-split" id="quick-connector">
+  <div class="case-label"><span class="case-number">04</span><span>Custom quick connector</span></div>
+  <div class="case-prose"><h2>Replacing repetitive screw-terminal wiring.</h2>
+   <p>The original testing workflow required manually wiring each of the LED tape’s 2–6 channels into a decoder using screw terminals for every setup. I designed a clamp-style quick connector to make these electrical connections faster and easier without repeatedly fastening individual wires. This addressed a separate source of manual work beyond the gantry’s motion and measurement process. The photographs below show the custom clamping and contact arrangement.</p>
+  </div>
+ </section>
+ <div class="case-gallery two-up">
+  <figure><img src={asset('drive-mechanism')} alt="Close-up of the custom clamp-style quick connector with its contact arrangement visible" loading="lazy"/><figcaption>Custom clamp-style quick connector · open view</figcaption></figure>
+  <figure><img src={asset('drive-adjustment')} alt="Close-up of the custom clamp-style quick connector with wires fitted and clamp engaged" loading="lazy"/><figcaption>Quick connector · clamped and wired view</figcaption></figure>
+ </div>
+ <section class="case-split" id="measurement">
+  <div class="case-label"><span class="case-number">05</span><span>Optical measurement</span></div>
+  <div class="case-prose"><h2>Making the measurement environment repeatable.</h2>
+   <p>The measurement enclosure was lined with felt to reduce internal reflections and used brushed openings to allow the tape to pass through while limiting ambient light leakage. Its upper section latched over the tape and platform, while the Sekonic C-800 fit into an opening at the top.</p>
+   <p>I checked light isolation and repeatability during prototyping, alongside motion and mechanical fit. The design aimed to preserve consistent instrument positioning as the enclosure travelled between sampling locations.</p>
+  </div>
+ </section>
+ <div class="case-gallery two-up">
+  <figure class="case-photo-color"><img src={asset('testing')} alt="Illuminated green LED tape passing through metal measurement enclosure with Sekonic spectrometer mounted on top" loading="lazy"/><figcaption>Light-isolated enclosure during illuminated-strip testing</figcaption></figure>
+  <figure><img src={asset('enclosure-bottom')} alt="Underside of measurement enclosure showing its structural mounting arrangement" loading="lazy"/><figcaption>Enclosure underside and mounting arrangement</figcaption></figure>
+ </div>
+ <section class="case-split" id="outcome">
+  <div class="case-label"><span class="case-number">06</span><span>Outcome & ownership</span></div>
+  <div class="case-prose"><h2>Validated hardware, without overstating the result.</h2>
+   <p>By the end of my co-op, I had designed and assembled the core carriage hardware and a custom clamp-style quick connector to streamline multi-channel tape connections, fabricated custom sheet-metal and CNC-machined components, implemented the drive arrangement, and tested its mechanical operation and the optical enclosure’s suitability for repeatable readings.</p>
+   <p>The system had not entered routine in-house QA operation before my co-op ended, so I cannot attribute specific testing-time or labour savings to it. Subsequent software integration and deployment were carried out separately.</p>
+   <div class="case-takeaway"><strong>What this project demonstrates</strong><p>Reviving an abandoned design, working within constraints imposed by existing parts, turning CAD into 3-axis CNC-machined and sheet-metal assemblies, and verifying that a mechatronic system behaves as intended.</p></div>
+  </div>
+ </section>
+ <nav class="case-end"><a href={`${base}/#projects`}>← Back to all projects</a><a href={`${base}/about`}>About me ↗</a></nav>
+</article>

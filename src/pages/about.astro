@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/site';
+---
+<Base title={`About — ${profile.name}`}>
+<section class="subpage"><div class="eyebrow">ABOUT / BACKGROUND</div><h1>Engineering, from concept to test bench.</h1><p class="lead">{profile.summary}</p><div class="info-grid"><div><h2>Background</h2><p>I'm studying electronics engineering at {profile.university}. I enjoy practical work that combines circuit design, embedded software, mechanical design, fabrication, and testing. As an LED Technician at Better Way Lighting, I developed and validated custom automation hardware for photometric testing.</p><p>I enjoy taking projects from a practical problem through design, fabrication, and hands-on testing. My work includes an automated LED tape measurement prototype and decoder test fixtures used in in-house quality assurance. Better Way Lighting outsourced electronic production; local testing supplemented factory QA and included functional checks of equipment before and after rental.</p></div><div class="info-panel"><h3>Areas of interest</h3><p>Embedded systems<br/>Analog electronics<br/>Test automation & in-house QA<br/>Instrumentation & testing</p><h3>Tools & fabrication</h3><p>Fusion 360<br/>3-axis CNC milling<br/>Sheet-metal design & fabrication<br/>Custom fixtures & mechanical assembly<br/>Stepper motor systems<br/>ESP32 prototyping</p><h3>Currently based</h3><p>{profile.location}</p><h3>Links</h3><p><a href={profile.linkedin}>LinkedIn ↗</a></p></div></div></section>
+</Base>

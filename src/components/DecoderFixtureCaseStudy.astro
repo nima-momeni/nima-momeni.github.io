@@ -1,0 +1,61 @@
+---
+const {project,base}=Astro.props;
+const img=(name)=>`${base}/images/decoder-testers/${name}.webp`;
+---
+<article class="case-study">
+ <a class="back" href={`${base}/#projects`}>← All projects</a>
+ <header class="case-intro">
+  <div class="eyebrow">SELECTED WORK / QA TEST FIXTURE DESIGN</div>
+  <h1>Quick-Connect LED<br/><em>Decoder Test Fixtures</em></h1>
+  <p class="lead">Replacing repetitive terminal wiring with reusable, pogo-pin test cartridges for 4-channel and 6-channel lighting decoders.</p>
+  <div class="tags case-tags">{project.tags.map(tag=><span>{tag}</span>)}</div>
+ </header>
+ <figure class="case-hero decoder-hero"><img src={img('four-channel')} alt="Actual four-channel LED decoder mounted in custom 3D-printed test fixture alongside DMX controller, switch, pogo-pin connections and LED indicator strip" fetchpriority="high"/><figcaption>Four-channel fixture with a DMX controller and integrated channel indicator strip.</figcaption></figure>
+ <div class="case-facts" aria-label="Project facts">
+  <div><small>ORGANIZATION</small><strong>Better Way Lighting</strong></div>
+  <div><small>ROLE</small><strong>LED Technician · Fixture design & fabrication</strong></div>
+  <div><small>TOOLS</small><strong>Fusion 360 · 3D printing · Pogo-pin contacts · Electrical assembly</strong></div>
+  <div><small>DEPLOYMENT</small><strong>Both fixtures used immediately · 200+ unit firmware-update campaign</strong></div>
+ </div>
+ <section class="case-split" id="decoder-challenge">
+  <div class="case-label"><span class="case-number">01</span><span>The challenge</span></div>
+  <div class="case-prose"><h2>Repeatable in-house QA without rewiring each unit.</h2>
+   <p>Better Way Lighting outsourced its electronic manufacturing, then performed additional in-house QA. This included checks before and after rental to identify damage or channel faults. Testing the 4- and 6-channel decoders previously required repeatedly fastening power and output wires into screw terminals, connecting short LED tape sections, and checking the channels manually—especially tedious during large firmware-update verification runs.</p>
+   <p>I designed dedicated fixtures that reused the decoders' existing connections but eliminated the need to tighten and loosen screws for each unit.</p>
+  </div>
+ </section>
+ <section class="case-split" id="decoder-design">
+  <div class="case-label"><span class="case-number">02</span><span>Mechanical & electrical design</span></div>
+  <div class="case-prose"><h2>A cartridge interface built around the existing terminal blocks.</h2>
+   <p>The crucial discovery was that the backing inside the existing terminal-block openings was conductive. Spring-loaded pogo pins could therefore enter the same openings and make electrical contact without altering the decoders themselves.</p>
+   <p>I designed custom 3D-printed housings with a gently inclined retention lip. Inserting the decoder compressed the spring contacts, allowing the housing to hold the unit while providing enough compliance for tool-free removal.</p>
+   <p>Wires connected the pogo pins directly to the power supply and a short LED tape indicator strip. Both fixtures mounted to their respective power supplies using existing screw points, and I integrated a power-switch housing along with recessed ON/OFF and tester-identification labels.</p>
+  </div>
+ </section>
+ <div class="case-gallery two-up decoder-photos">
+  <figure><img src={img('four-channel-detail')} alt="Four-channel decoder tester with 3D-printed retaining rails, recessed labels, power switch, LED indicator strip, and an intentionally obscured QR-linked usage guide" loading="lazy"/><figcaption>4-channel fixture · cartridge, integrated switch, and QR-linked usage guide (QR intentionally obscured)</figcaption></figure>
+  <figure><img src={img('six-channel')} alt="Six-channel decoder mounted on a custom black printed test cartridge atop the power supply, showing direct wiring to existing terminal block and integrated test LED strip" loading="lazy"/><figcaption>6-channel fixture · decoder seated on the printed test cartridge</figcaption></figure>
+ </div>
+ <section class="case-split" id="decoder-workflow">
+  <div class="case-label"><span class="case-number">03</span><span>Testing workflow</span></div>
+  <div class="case-prose"><h2>Insert. Power on. Verify each channel.</h2>
+   <p>After the decoder was seated against the spring contacts, the operator toggled the fixture's integrated power switch. An externally configured DMX controller ran a preprogrammed sequence that commanded individual channels to full intensity. The operator checked the small LED tape strip to verify that each channel illuminated.</p>
+   <p>The external DMX sequence was not software I developed; my contribution was the reusable test hardware, the contact and retention mechanism, and the operator-facing fixture design.</p>
+  </div>
+ </section>
+ <div class="decoder-process" aria-label="Three-step testing workflow">
+  <div><strong>01 / INSERT</strong><p>Seat the decoder in the printed housing; pogo pins engage the conductive terminal-block backing.</p></div>
+  <div><strong>02 / ACTIVATE</strong><p>Use the integrated switch to energize the decoder and run the externally configured DMX sequence.</p></div>
+  <div><strong>03 / VERIFY</strong><p>Observe the onboard LED tape as each output channel illuminates in turn.</p></div>
+ </div>
+ <figure class="case-hero"><img src={img('six-channel-lit')} alt="Six-channel decoder test fixture powered on with bright LED channel indicators visibly illuminated" loading="lazy"/><figcaption>6-channel tester under power, with its LED output strip illuminated.</figcaption></figure>
+ <section class="case-split" id="decoder-outcome">
+  <div class="case-label"><span class="case-number">04</span><span>Deployment & outcome</span></div>
+  <div class="case-prose"><h2>Immediately used in a 200+ unit verification effort.</h2>
+   <p>Both the 4-channel and 6-channel fixtures were adopted immediately during a firmware-update campaign involving more than 200 units. They provided a quick, reusable way to verify each decoder's channel outputs after its update without repeating the original screw-terminal setup.</p>
+   <p>I also produced a detailed user manual and made it accessible through a QR code on the housing. I do not have a copy of that manual available to publish.</p>
+   <div class="case-takeaway"><strong>What this project demonstrates</strong><p>Identifying a repetitive QA testing bottleneck, designing a reliable mechanical/electrical interface around existing products, and delivering test hardware that operators actually used. No unmeasured time-savings percentage is claimed.</p></div>
+  </div>
+ </section>
+ <nav class="case-end"><a href={`${base}/#projects`}>← Back to all projects</a><a href={`${base}/about`}>About me ↗</a></nav>
+</article>

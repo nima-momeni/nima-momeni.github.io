@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/site';
+import '../styles/global.css';
+const { title = profile.name, description = profile.summary } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const home = `${base}/`;
+---
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content={description}/><title>{title}</title></head>
+<body>
+ <div class="site-wrap">
+  <header class="header"><a class="brand" href={home}><span class="brand-mark">{profile.initials}</span><span>{profile.name}</span></a>
+   <nav aria-label="Main navigation"><a href={`${base}/#projects`}>Projects</a><a href={`${base}/about`}>About</a><a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></nav></header>
+  <main><slot/></main>
+  <footer><span>© {new Date().getFullYear()} {profile.name}</span><span>Built with Astro · <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></span></footer>
+ </div>
+</body></html>
